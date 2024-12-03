@@ -1,0 +1,48 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Crud";
+
+
+message Person {
+  int32 id = 1;
+  string name = 2;
+  string lastname = 3;
+  string nationalCode = 4;
+  string birthDate = 5;
+}
+
+// درخواست برای دریافت همه افراد
+message GetAllPersonsRequest {}
+
+message GetPersonByIdRequest {
+  int32 id = 1;
+}
+
+message CreatePersonRequest {
+  Person person = 1;
+}
+
+message UpdatePersonRequest {
+  Person person = 1;
+}
+
+message DeletePersonRequest {
+  int32 id = 1;
+}
+
+message PersonResponse {
+  Person person = 1;
+}
+
+message PersonsResponse {
+  repeated Person persons = 1;
+}
+
+// سرویس CRUD برای Person
+service PersonService {
+  rpc GetAllPersons (GetAllPersonsRequest) returns (PersonsResponse);
+  rpc GetPersonById (GetPersonByIdRequest) returns (PersonResponse);
+  rpc CreatePerson (CreatePersonRequest) returns (PersonResponse);
+  rpc UpdatePerson (UpdatePersonRequest) returns (PersonResponse);
+  rpc DeletePerson (DeletePersonRequest) returns (PersonResponse);
+}
